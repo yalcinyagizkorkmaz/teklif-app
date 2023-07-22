@@ -73,24 +73,16 @@ const Example = () => {
     const columns = useMemo(
         () => [
             {
-                accessorKey: 'adi',
-                header: 'İsim'
-            },
-            {
-                accessorKey: 'soyadi',
-                header: 'Soyisim'
-            },
-            {
                 accessorKey: 'firmaAdi',
-                header: 'Firma Adı'
+                header: 'Firma Ismi'
             },
             {
-                accessorKey: 'telefonNumarasi',
-                header: 'Telefon Numarası'
+                accessorKey: 'firmatelefonNumarasi',
+                header: 'Firma Telefon Numarası'
             },
             {
-                accessorKey: 'email',
-                header: 'Email Adresi'
+                accessorKey: 'firmaEmail',
+                header: 'Firma Email'
             }
         ],
         []
@@ -113,7 +105,7 @@ const Example = () => {
                 onGlobalFilterChange={setGlobalFilter}
                 onPaginationChange={setPagination}
                 onSortingChange={setSorting}
-                renderTopToolbarCustomActions={() => (
+                renderTopToolbarCompanyActions={() => (
                     <Tooltip arrow title="Refresh Data">
                         <IconButton onClick={() => refetch()}>
                             <RefreshIcon />

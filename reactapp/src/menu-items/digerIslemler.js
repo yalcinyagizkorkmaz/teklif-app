@@ -1,8 +1,10 @@
 // assets
 import { IconUsers } from '@tabler/icons';
+import { IconBuildingFactory } from '@tabler/icons';
 
 // constant
-const icons = { IconUsers };
+const icons = { IconUsers,IconBuildingFactory };
+
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
@@ -29,10 +31,34 @@ const digerIslemler = {
                     title: 'Müşteri Ekle',
                     type: 'item',
                     url: '/digerIslemler/musteri-ekle'
-                }
+                },
             ]
-        }
-    ]
+        },
+         
+        {
+            id: 'firmalar',
+            title: 'Firmalar',
+            type: 'collapse',
+            icon: icons.IconBuildingFactory,
+
+            children: [
+                {
+                    id: 'firmalar',
+                    title: 'Firma Listesi',
+                    type: 'item',
+                    url: '/digerIslemler/firmalar'
+                },
+                {
+                    id: 'firma-ekle',
+                    title: 'Firma Ekle',
+                    type: 'item',
+                    url: '/digerIslemler/firma-ekle'
+                },
+            ]
+        },
+    ],
+        
+    
 };
 
 export default digerIslemler;

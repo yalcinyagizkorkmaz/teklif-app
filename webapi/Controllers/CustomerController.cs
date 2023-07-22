@@ -25,7 +25,7 @@ namespace webapi.Controllers
         }
 
 
-        [HttpGet(Name = "CustomerController")]
+        [HttpGet(Name="CustomerController")]
         public IEnumerable<Customer> Get()
         {
             var a = Enumerable.Range(1, 10).Select(index => new Customer
@@ -55,6 +55,7 @@ namespace webapi.Controllers
                     Adi = dataVM.Adi,
                     Soyadi = dataVM.Soyadi,
                     Email = dataVM.Email,
+                    FirmaAdi=dataVM.FirmaAdi,//ekledim
                     TelefonNumarasi = dataVM.TelefonNumarasi,
                 };
 
@@ -75,6 +76,7 @@ namespace webapi.Controllers
                 Id = x.Id,
                 Adi = x.Adi,
                 Soyadi = x.Soyadi,
+                FirmaAdi=x.FirmaAdi,//ekledim
                 Email = x.Email,
                 TelefonNumarasi = x.TelefonNumarasi,
             });

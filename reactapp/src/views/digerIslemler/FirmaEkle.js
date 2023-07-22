@@ -1,4 +1,4 @@
-import { Button, Container, FormControl, Grid, LinearProgress, TextField ,Select} from '@mui/material';
+import { Button, Container, FormControl, Grid, LinearProgress, TextField } from '@mui/material';
 import React from 'react';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import Select from 'react-select';
 
 
 
@@ -15,103 +16,100 @@ import { useEffect } from 'react';
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-function MusteriEkle() {
+function FirmaEkle() {
     const { id } = useParams();
 
     const [fetchingError, setFetchingError] = useState(false);
     const [isFetching, setIsFetching] = useState(false);
     const [isUpdate, setIsUpdate] = useState(0);
-    const [phone, setPhone] = React.useState('');
-    const [phoneError, setPhoneError] = React.useState(false);
-    const [musteriAdi, setMusteriAdi] = useState('');
-    const [musteriSoyadi, setMusteriSoyadi] = useState('');
+    const [firmaPhone, setFirmaPhone] = React.useState('');
+    const [firmaPhoneError, setFirmaPhoneError] = React.useState(false);
     const [firmaAdi, setFirmaAdi] = useState('');
-    const [email, setEmail] = useState('');
-    const [emailError, setEmailError] = useState(false);
-    const [validationErrors, setValidationErrors] = React.useState({});
-
-    const options = [
-        { value: 'firmaAdi', label: 'Chocolate' },
-        { value: 'firmaAdi', label: 'Strawberry' },
-        { value: 'firmaAdi', label: 'Vanilla' }
-      ]
-    function handleSelect(event){
-setNestedObjectValues(event.target.value);
-    }
+    const [firmaEmail,setFirmaEmaill] = useState('');
+    const [firmaEmailError, setFirmaEmailError] = useState(false);
+    const [firmaValidationErrors, setFirmaValidationErrors] = React.useState({});
+    const [firmaFaaliyetAlani,setFirmaFaaliyetAlani]= useState('');
+    const[firmaMerkezi,setFirmaMerkezi]=useState('');
+    
+    
+   
 
     useEffect(() => {
         console.log(id);
         if (typeof id !== 'undefined') {
             setIsUpdate(id);
             setIsFetching(true);
-            musteriGetirPromise();
+            firmaGetirPromise();
         } else {
-            setEmail('');
-            setPhone('');
-            setMusteriAdi('');
-            setMusteriSoyadi('');
             setFirmaAdi('');
             setIsFetching(false);
+            setFirmaEmaill('');
+            setFirmaPhone('');
+            setFirmaFaaliyetAlani('');
+            setFirmaMerkezi('');
         }
     }, [id]);
+   
+      
 
     const handleNumber = (value, info) => {
-        setPhone(info.numberValue);
+        setFirmaPhone(info.numberValue);
         if (matchIsValidTel(value) || info.nationalNumber === '') {
-            setPhoneError(false);
+            setFirmaPhoneError(false);
         } else {
-            setPhoneError(true);
+            setFirmaPhoneError(true);
         }
     };
 
-    const handleEmail = (email) => {
-        setEmail(email.target.value);
-        if (validator.isEmail(email.target.value) || email.target.value === '') {
-            setEmailError(false);
+    const handleEmail = (firmaEmail) => {
+        setFirmaEmaill(firmaEmail.target.value);
+        if (validator.isEmail(firmaEmail.target.value) || firmaEmail.target.value === '') {
+            setFirmaEmailError(false);
         } else {
-            setEmailError(true);
+            setFirmaEmailError(true);
         }
     };
-  
 
-    const musteriEkle = () => {
+    const firmaEkle = () => {
         if (typeof id !== 'undefined') {
-            toast.promise(musteriEklePromise, {
-                pending: 'Müşteri güncelleniyor',
-                success: musteriAdi + ' ' + musteriSoyadi + ' başarıyla güncellendi 👌',
-                error: musteriAdi + ' ' + musteriSoyadi + ' güncellenirken hata oluştu 🤯'
+            toast.promise(firmaEklePromise, {
+                pending: 'Firma güncelleniyor',
+                success: firmaAdi + 'Firma başarıyla güncellendi 👌',
+                error: firmaAdi +'Firma güncellenirken hata oluştu 🤯'
             });
         } else {
-            toast.promise(musteriEklePromise, {
-                pending: 'Müşteri kaydı yapılıyor',
-                success: musteriAdi + ' ' + musteriSoyadi + ' başarıyla eklendi 👌',
-                error: musteriAdi + ' ' + musteriSoyadi + ' eklenirken hata oluştu 🤯'
+            toast.promise(firmaEklePromise, {
+                pending: 'Firma kaydı yapılıyor',
+                success: firmaAdi +'Firma başarıyla eklendi 👌',
+                error: firmaAdi +'Firma eklenirken hata oluştu 🤯'
             });
         }
+        
     };
 
-    const musteriEklePromise = () => {
+    const firmaEklePromise = () => {
         return new Promise(async (resolve, reject) => {
             const start = Date.now();
-            setValidationErrors({});
-            let musteriData = JSON.stringify({
+            setFirmaValidationErrors({});
+            let data = JSON.stringify({
                 id: typeof id !== 'undefined' ? id : 0,
-                adi: musteriAdi,
-                soyadi: musteriSoyadi,
-                //firmaadi:firmaAdi,
-                telefonNumarasi: phone,
-                email: email
+                firma: firmaAdi,
+                firmaFaaliyetAlani:firmaFaaliyetAlani,
+                firmaMerkezi:firmaMerkezi,
+                firmaTelefonNumarasi: firmaPhone,
+                firmaEmail: firmaEmail
             });
 
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:7002/api/Musteri/CreateOrUpdate',
+                url: 'http://localhost:5273/api/Musteri/CreateOrUpdate',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'text/plain'
                 },
-                data: musteriData
+                data: data
+                
             };
 
             axios
@@ -130,16 +128,16 @@ setNestedObjectValues(event.target.value);
                 })
                 .catch((error) => {
                     console.log(error);
-                    setValidationErrors(error.response.data.errors);
+                    setFirmaValidationErrors(error.response.data.errors);
                     reject(error); // Hata durumunda Promise'ı reddet
                 });
         });
     };
 
-    const musteriGetirPromise = () => {
+    const firmaGetirPromise = () => {
         return new Promise(async (resolve, reject) => {
             const start = Date.now();
-            setValidationErrors({});
+            setFirmaValidationErrors({});
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
@@ -163,11 +161,11 @@ setNestedObjectValues(event.target.value);
                             await sleep(500 - millis);
                         }
                         console.log(response.data);
-                        setMusteriAdi(response.data.data.adi);
-                        setMusteriSoyadi(response.data.data.soyadi);
-                        setEmail(response.data.data.email);
-                        setFirmaAdi(response.data.data.firmaadi);
-                        setPhone(response.data.data.telefonNumarasi);
+                        setFirmaAdi(response.data.data.firma);
+                        setFirmaFaaliyetAlani(response.data.data.firmaFaaliyetAlani);
+                        setFirmaMerkezi(response.data.firmaMerkezi);
+                        setFirmaEmaill(response.data.data.firmaEmail);
+                        setFirmaPhone(response.data.data.firmaTelefonNumarasi);
                         setFetchingError(false);
                         resolve(response.data); // Başarılı sonuç d1urumunda Promise'ı çöz
                     } else {
@@ -185,7 +183,7 @@ setNestedObjectValues(event.target.value);
                 });
         });
     };
-   
+
     return (
         <>
             <Container className="d-flex justify-content-center" maxWidth="md">
@@ -194,66 +192,65 @@ setNestedObjectValues(event.target.value);
                         {isFetching && <LinearProgress className="mt-3" color="secondary" />}
                         {(isUpdate === 0 || !isFetching) && (
                             <>
-                                <TextField
-                                    value={musteriAdi}
-                                    margin="normal"
-                                    id="name"
-                                    label="Müşteri Adı"
-                                    variant="outlined"
-                                    onChange={(e) => setMusteriAdi(e.target.value)}
-                                    error={!!validationErrors.Adi} // Hatanın varlığına göre error özelliğini ayarla
-                                    helperText={validationErrors.Adi} // Hata mesajını helperText olarak göster*/
-                                />
+                               
                                 <TextField
                                     margin="normal"
-                                    value={musteriSoyadi}
-                                    id="surname"
-                                    label="Müşteri Soyadı"
-                                    variant="outlined"
-                                    onChange={(e) => setMusteriSoyadi(e.target.value)}
-                                    error={!!validationErrors.Soyadi}
-                                    helperText={validationErrors.Soyadi}
-                                />
-                              <Select
-                                    margin="normal"
-                                    id="company"
+                                    id="firmaName"
                                     value={firmaAdi}
                                     label="Firma Adı"
                                     variant="outlined"
-                                    onChange={handleSelect}
-                                    error={!!validationErrors.FirmaAdi}
-                                    helperText={validationErrors.FirmaAdi}
-                                    options={options}
-                                    
-                                   
-                                   
+                                    onChange={(e) => setFirmaAdi(e.target.value)}
+                                    error={!!firmaValidationErrors.Adi} // Hatanın varlığına göre error özelliğini ayarla
+                                    helperText={firmaValidationErrors.Adi} // Hata mesajını helperText olarak göster  
                                 />
+                                 <TextField
+                                    margin="normal"
+                                    id="firmaFaaliyetAlani"
+                                    value={firmaFaaliyetAlani}
+                                    label="Firma Faaliyet Alani"
+                                    variant="outlined"
+                                    onChange={(e) => setFirmaFaaliyetAlani(e.target.value)}
+                                    error={!!firmaValidationErrors.Adi} // Hatanın varlığına göre error özelliğini ayarla
+                                    helperText={firmaValidationErrors.Adi} // Hata mesajını helperText olarak göster  
+                                />
+
+                                 <TextField
+                                    margin="normal"
+                                    id="firmaMerkezi"
+                                    value={firmaMerkezi}
+                                    label="Firma Merkezi"
+                                    variant="outlined"
+                                    onChange={(e) => setFirmaMerkezi(e.target.value)}
+                                    error={!!firmaValidationErrors.Adi} // Hatanın varlığına göre error özelliğini ayarla
+                                    helperText={firmaValidationErrors.Adi} // Hata mesajını helperText olarak göster  
+                                />
+
                                 <TextField
-                                    error={emailError || !!validationErrors.Email}
-                                    helperText={emailError ? 'Email adresini kontrol edin' : validationErrors.Email} // emailError true ise kendi mesajını göster, aksi halde validationErrors'tan gelen mesajı göster
+                                    error={firmaEmailError|| !!firmaValidationErrors.Email}
+                                    helperText={firmaEmailError ? 'Firma Email adresini kontrol edin' : firmaValidationErrors.firmaEmail} // emailError true ise kendi mesajını göster, aksi halde validationErrors'tan gelen mesajı göster
                                     type="email"
                                     margin="normal"
-                                    id="e-mail"
-                                    label="Email"
+                                    id="firma-e-mail"
+                                    label="Firma Email"
                                     variant="outlined"
-                                    value={email}
+                                    value={firmaEmail}
                                     onChange={(e) => handleEmail(e)}
                                 />
                                 <MuiTelInput
-                                    error={phoneError || !!validationErrors.TelefonNumarasi}
-                                    helperText={phoneError ? 'Telefon numarasını kontrol edin' : validationErrors.TelefonNumarasi}
+                                    error={firmaPhoneError || !!firmaValidationErrors.firmaTelefonNumarasi}
+                                    helperText={firmaPhoneError ? 'Telefon numarasını kontrol edin' : firmaValidationErrors.firmaTelefonNumarasi}
                                     defaultCountry="TR"
                                     preferredCountries={['TR']}
                                     variant="outlined"
                                     margin="normal"
-                                    label="Telefon Numarası"
-                                    value={phone}
+                                    label="Firma Telefon Numarası"
+                                    value={firmaPhone}
                                     onChange={(value, info) => handleNumber(value, info)}
-                                    id="phone-number"
+                                    id="firma-phone-number"
                                     focusOnSelectCountry
                                     forceCallingCode
                                 />
-                                <Button onClick={musteriEkle} className="mb-2" margin="normal" variant="contained">
+                                <Button onClick={firmaEkle} className="mb-2" margin="normal" variant="contained">
                                     Kaydet
                                 </Button>
                             </>
@@ -265,4 +262,6 @@ setNestedObjectValues(event.target.value);
     );
 }
 
-export default MusteriEkle;
+export default FirmaEkle;
+
+

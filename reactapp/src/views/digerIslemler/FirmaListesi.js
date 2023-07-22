@@ -52,24 +52,24 @@ const Example = () => {
     const columns = useMemo(
         () => [
             {
-                accessorKey: 'adi',
-                header: 'İsim'
-            },
-            {
-                accessorKey: 'soyadi',
-                header: 'Soyisim'
-            },
-            {
                 accessorKey: 'firmaAdi',
-                header: 'Firma'
+                header: 'Firma Adı'
+            },   
+            {
+                accessorKey:'firmaFaaliyetAlanı',
+                header:'Firma Faaliyet Alanı',
             },
             {
-                accessorKey: 'telefonNumarasi',
-                header: 'Telefon Numarası'
+                accessorKey:'firmaMerkezi',
+                header:'Firma Merkezi',
             },
             {
-                accessorKey: 'email',
-                header: 'Email Adresi'
+                accessorKey: 'firmatelefonNumarasi',
+                header: 'Firma Telefon Numarası'
+            },
+            {
+                accessorKey: 'firmaEmail',
+                header: 'Firma Email Adresi'
             }
         ],
         []
@@ -77,9 +77,9 @@ const Example = () => {
 
     const deleteById = (id) => {
         toast.promise(deletePromise(id), {
-            pending: 'Müşteri siliniyor.',
-            success: 'Müşteri başarıyla silindi 👌',
-            error: 'Müşteri silinirken hata oluştu 🤯'
+            pending: 'Firma siliniyor.',
+            success: 'Firma başarıyla silindi 👌',
+            error: 'Firma  silinirken hata oluştu 🤯'
         });
     };
 
@@ -139,7 +139,7 @@ const Example = () => {
                         <IconButton
                             color="secondary"
                             onClick={() => {
-                                navigate(`/digerIslemler/musteri-duzenle/${row.original.id}`);
+                                navigate(`/digerIslemler/firma-duzenle/${row.original.id}`);
                             }}
                         >
                             <EditIcon />
