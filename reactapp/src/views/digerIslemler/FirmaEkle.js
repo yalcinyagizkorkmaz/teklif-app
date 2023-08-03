@@ -7,7 +7,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import Select from 'react-select';
+
 
 
 
@@ -78,6 +78,7 @@ function FirmaEkle() {
                 error: firmaAdi +'Firma güncellenirken hata oluştu 🤯'
             });
         } else {
+            
             toast.promise(firmaEklePromise, {
                 pending: 'Firma kaydı yapılıyor',
                 success: firmaAdi +'Firma başarıyla eklendi 👌',
@@ -90,25 +91,30 @@ function FirmaEkle() {
     const firmaEklePromise = () => {
         return new Promise(async (resolve, reject) => {
             const start = Date.now();
+         
+
             setFirmaValidationErrors({});
-            let data = JSON.stringify({
+            let firmaData = JSON.stringify({
                 id: typeof id !== 'undefined' ? id : 0,
-                firma: firmaAdi,
+                firmaAdi: firmaAdi,
                 firmaFaaliyetAlani:firmaFaaliyetAlani,
                 firmaMerkezi:firmaMerkezi,
                 firmaTelefonNumarasi: firmaPhone,
                 firmaEmail: firmaEmail
+               
             });
+
+            console.log(firmaData);
 
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:5273/api/Musteri/CreateOrUpdate',
+                url: 'https://localhost:7002/api/Firma/CreateOrUpdate',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'text/plain'
                 },
-                data: data
+                data: firmaData
                 
             };
 
@@ -116,6 +122,7 @@ function FirmaEkle() {
                 .request(config)
                 .then(async (response) => {
                     console.log(JSON.stringify(response.data));
+
                     if (response.data.result) {
                         const millis = Date.now() - start;
                         if (millis < 700) {
@@ -128,7 +135,7 @@ function FirmaEkle() {
                 })
                 .catch((error) => {
                     console.log(error);
-                    setFirmaValidationErrors(error.response.data.errors);
+                    setFirmaValidationErrors(error);
                     reject(error); // Hata durumunda Promise'ı reddet
                 });
         });
@@ -141,7 +148,7 @@ function FirmaEkle() {
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:5273/api/Musteri/Get',
+                url: 'https://localhost:7002/api/Firma/Get',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'text/plain'
@@ -161,7 +168,7 @@ function FirmaEkle() {
                             await sleep(500 - millis);
                         }
                         console.log(response.data);
-                        setFirmaAdi(response.data.data.firma);
+                        setFirmaAdi(response.data.data.firmaAdi);
                         setFirmaFaaliyetAlani(response.data.data.firmaFaaliyetAlani);
                         setFirmaMerkezi(response.data.firmaMerkezi);
                         setFirmaEmaill(response.data.data.firmaEmail);

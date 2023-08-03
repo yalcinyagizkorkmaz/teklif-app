@@ -25,7 +25,7 @@ const Example = () => {
         //       '/api/data',
         //       process.env.NODE_ENV === 'production'
         //         ? 'https://www.material-react-table.com'
-        //         : 'http://localhost:3000',
+        //         : 'https://localhost:3000',
         //     );
         //     fetchURL.searchParams.set(
         //       'start',
@@ -52,7 +52,7 @@ const Example = () => {
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'https://localhost:5273/Customer/GetCustomerGrid',
+                url: 'https://localhost:7002/Firma/GetFirmaGrid',
                 data: data
             };
 
@@ -77,12 +77,20 @@ const Example = () => {
                 header: 'Firma Ismi'
             },
             {
-                accessorKey: 'firmatelefonNumarasi',
+                accessorKey: 'firmaFaaliyetAlani',
+                header:'Firma Faaliyet Alanı',
+            },
+            {
+                accessorKey:'firmaMerkezi',
+                header:'Firma Merkezi',
+            },
+            {
+                accessorKey: 'firmaTelefonNumarasi',
                 header: 'Firma Telefon Numarası'
             },
             {
                 accessorKey: 'firmaEmail',
-                header: 'Firma Email'
+                header: 'Firma Email Adresi'
             }
         ],
         []

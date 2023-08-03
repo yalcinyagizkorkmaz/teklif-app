@@ -9,12 +9,14 @@ namespace webapi.Data
         public DbSet<Entity.Customer> Customers { get; set; }
         public DbSet<ExceptionLog> ExceptionLog { get; set; }
         public DbSet<Musteri> Musteri { get; set; }
+        public DbSet<Firma> Firma { get; set; }
+      
 
         public string DbPath { get; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
         {
-            var folder = Environment.SpecialFolder.MyDocuments;
+            var folder = Environment.SpecialFolder.Desktop;
             var path = Environment.GetFolderPath(folder);
             DbPath = System.IO.Path.Join(path, "FiyatTeklifi.db");
         }

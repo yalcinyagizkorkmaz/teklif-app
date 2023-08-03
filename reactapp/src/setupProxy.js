@@ -10,7 +10,7 @@ const context = [
 
 module.exports = function (app) {
     const appProxy = createProxyMiddleware(context, {
-        target: 'https://localhost:5273',
+        target: 'https://localhost:7002',
         secure: false
     });
 

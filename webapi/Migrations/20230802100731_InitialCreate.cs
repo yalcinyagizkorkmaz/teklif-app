@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace webapi.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,6 +19,7 @@ namespace webapi.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Adi = table.Column<string>(type: "TEXT", nullable: false),
                     Soyadi = table.Column<string>(type: "TEXT", nullable: false),
+                    FirmaAdi = table.Column<string>(type: "TEXT", nullable: false),
                     TelefonNumarasi = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Creator = table.Column<int>(type: "INTEGER", nullable: true),
@@ -51,6 +52,28 @@ namespace webapi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Firma",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    FirmaAdi = table.Column<string>(type: "TEXT", nullable: false),
+                    FirmaFaaliyetAlani = table.Column<string>(type: "TEXT", nullable: false),
+                    FirmaMerkezi = table.Column<string>(type: "TEXT", nullable: false),
+                    FirmaTelefonNumarasi = table.Column<string>(type: "TEXT", nullable: false),
+                    FirmaEmail = table.Column<string>(type: "TEXT", nullable: false),
+                    Creator = table.Column<int>(type: "INTEGER", nullable: true),
+                    Updater = table.Column<int>(type: "INTEGER", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Firma", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Musteri",
                 columns: table => new
                 {
@@ -58,6 +81,7 @@ namespace webapi.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Adi = table.Column<string>(type: "TEXT", nullable: false),
                     Soyadi = table.Column<string>(type: "TEXT", nullable: false),
+                    FirmaAdi = table.Column<string>(type: "TEXT", nullable: false),
                     TelefonNumarasi = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Creator = table.Column<int>(type: "INTEGER", nullable: true),
@@ -80,6 +104,9 @@ namespace webapi.Migrations
 
             migrationBuilder.DropTable(
                 name: "ExceptionLog");
+
+            migrationBuilder.DropTable(
+                name: "Firma");
 
             migrationBuilder.DropTable(
                 name: "Musteri");

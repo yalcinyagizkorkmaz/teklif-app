@@ -32,7 +32,7 @@ const Example = () => {
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:5273/api/Musteri/GetGrid',
+                url: 'https://localhost:7002/api/Musteri/GetGrid',
                 data: data
             };
 
@@ -90,7 +90,7 @@ const Example = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:5273/api/Musteri/Delete',
+                url: 'https://localhost:7002/api/Musteri/Delete',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'text/plain'

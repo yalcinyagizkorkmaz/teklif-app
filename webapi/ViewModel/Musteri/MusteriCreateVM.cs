@@ -3,6 +3,7 @@
 namespace webapi.ViewModel.Musteri
 {
     public class MusteriCreateVM
+        
     {
         public int Id { get; set; }
         [Required]
@@ -10,7 +11,7 @@ namespace webapi.ViewModel.Musteri
         [Required]
         public required string Soyadi { get; set; }
         [Required]
-        public required string FirmaAdi{get;set;}
+        public required  int FirmaId {get;set;}
         [Required]
         
         public required string TelefonNumarasi { get; set; }

@@ -25,7 +25,7 @@ const Example = () => {
         //       '/api/data',
         //       process.env.NODE_ENV === 'production'
         //         ? 'https://www.material-react-table.com'
-        //         : 'http://localhost:3000',
+        //         : 'https://localhost:3000',
         //     );
         //     fetchURL.searchParams.set(
         //       'start',
@@ -52,7 +52,7 @@ const Example = () => {
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'https://localhost:5273/Customer/GetCustomerGrid',
+                url: 'https://localhost:7002/Musteri/GetMusteriGrid',
                 data: data
             };
 

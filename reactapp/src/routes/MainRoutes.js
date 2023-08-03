@@ -120,7 +120,7 @@ const MainRoutes = {
                     element:<FirmaEkle/>
                 },
                 {
-                    path:'firma-düzenle/:id',
+                    path:'firma-duzenle/:id',
                     element:<FirmaEkle/>
                 }
             ]

@@ -13,6 +13,8 @@ import { useEffect } from 'react';
 
 
 
+
+
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 function MusteriEkle() {
@@ -25,19 +27,31 @@ function MusteriEkle() {
     const [phoneError, setPhoneError] = React.useState(false);
     const [musteriAdi, setMusteriAdi] = useState('');
     const [musteriSoyadi, setMusteriSoyadi] = useState('');
-    const [firmaAdi, setFirmaAdi] = useState('');
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState(false);
     const [validationErrors, setValidationErrors] = React.useState({});
+    const [selectedFirma, setFirmaAdi] = useState('');
 
-    const options = [
-        { value: 'firmaAdi', label: 'Chocolate' },
-        { value: 'firmaAdi', label: 'Strawberry' },
-        { value: 'firmaAdi', label: 'Vanilla' }
-      ]
-    function handleSelect(event){
-setNestedObjectValues(event.target.value);
-    }
+    const [firmaId, setFirmaId] = useState(null);
+
+    const firmaListesi = [
+        { selectedFirma: 'firma1', label: 'Firma 1' },
+        { selectedFirma: 'firma2', label: 'Firma 2' },
+    
+      ];
+    
+    
+    
+      const handleFirmaSelect = (selectedFirma) => {
+       setFirmaAdi(selectedFirma);
+      };
+     
+  
+
+
+      
+      
+   
 
     useEffect(() => {
         console.log(id);
@@ -50,8 +64,9 @@ setNestedObjectValues(event.target.value);
             setPhone('');
             setMusteriAdi('');
             setMusteriSoyadi('');
-            setFirmaAdi('');
             setIsFetching(false);
+            setFirmaAdi('');
+           
         }
     }, [id]);
 
@@ -98,15 +113,17 @@ setNestedObjectValues(event.target.value);
                 id: typeof id !== 'undefined' ? id : 0,
                 adi: musteriAdi,
                 soyadi: musteriSoyadi,
-                //firmaadi:firmaAdi,
+                firmaId: firmaId.value,
                 telefonNumarasi: phone,
                 email: email
             });
 
+            console.log(musteriData)
+
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:7002/api/Musteri/CreateOrUpdate',
+                url: 'https://localhost:7002/api/Musteri/CreateOrUpdate',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'text/plain'
@@ -129,8 +146,9 @@ setNestedObjectValues(event.target.value);
                     }
                 })
                 .catch((error) => {
+                    console.log("test")
                     console.log(error);
-                    setValidationErrors(error.response.data.errors);
+                    setValidationErrors(error);
                     reject(error); // Hata durumunda Promise'ı reddet
                 });
         });
@@ -143,7 +161,7 @@ setNestedObjectValues(event.target.value);
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:5273/api/Musteri/Get',
+                url: 'https://localhost:7002/api/Musteri/Get',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'text/plain'
@@ -166,7 +184,7 @@ setNestedObjectValues(event.target.value);
                         setMusteriAdi(response.data.data.adi);
                         setMusteriSoyadi(response.data.data.soyadi);
                         setEmail(response.data.data.email);
-                        setFirmaAdi(response.data.data.firmaadi);
+                       setFirmaAdi(response.data.data.firmaadi);
                         setPhone(response.data.data.telefonNumarasi);
                         setFetchingError(false);
                         resolve(response.data); // Başarılı sonuç d1urumunda Promise'ı çöz
@@ -187,6 +205,7 @@ setNestedObjectValues(event.target.value);
     };
    
     return (
+        
         <>
             <Container className="d-flex justify-content-center" maxWidth="md">
                 <Grid item xs={6}>
@@ -217,13 +236,15 @@ setNestedObjectValues(event.target.value);
                               <Select
                                     margin="normal"
                                     id="company"
-                                    value={firmaAdi}
-                                    label="Firma Adı"
+                                    label="Firma Adi"
                                     variant="outlined"
-                                    onChange={handleSelect}
                                     error={!!validationErrors.FirmaAdi}
                                     helperText={validationErrors.FirmaAdi}
-                                    options={options}
+                                    value={firmaId}
+                                    onChange={setFirmaId}
+                                    options={firmaListesi}
+                                    
+                                   
                                     
                                    
                                    

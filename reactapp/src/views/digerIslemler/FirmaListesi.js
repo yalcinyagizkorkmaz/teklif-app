@@ -32,7 +32,7 @@ const Example = () => {
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:5273/api/Musteri/GetGrid',
+                url: 'https://localhost:7002/api/Firma/GetGrid',
                 data: data
             };
 
@@ -56,7 +56,7 @@ const Example = () => {
                 header: 'Firma Adı'
             },   
             {
-                accessorKey:'firmaFaaliyetAlanı',
+                accessorKey:'firmaFaaliyetAlani',
                 header:'Firma Faaliyet Alanı',
             },
             {
@@ -64,7 +64,7 @@ const Example = () => {
                 header:'Firma Merkezi',
             },
             {
-                accessorKey: 'firmatelefonNumarasi',
+                accessorKey: 'firmaTelefonNumarasi',
                 header: 'Firma Telefon Numarası'
             },
             {
@@ -90,7 +90,7 @@ const Example = () => {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:5273/api/Musteri/Delete',
+                url: 'https://localhost:7002/api/Firma/Delete',
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'text/plain'

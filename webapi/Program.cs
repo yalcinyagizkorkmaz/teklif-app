@@ -31,10 +31,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("AllowAllOrigins");
+
+app.UseCors(x => x.AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("*"));
 
 app.UseRouting();
 app.UseStaticFiles();
 app.MapControllers();
+ 
 
 app.Run();

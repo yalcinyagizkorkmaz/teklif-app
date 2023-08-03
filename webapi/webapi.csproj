@@ -24,4 +24,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="ViewModel\Firma\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\Firma\" />
+  </ItemGroup>
 </Project>
