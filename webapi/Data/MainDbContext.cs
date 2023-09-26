@@ -12,7 +12,7 @@ namespace webapi.Data
         public DbSet<Firma> Firma { get; set; }
       
 
-        public string DbPath { get; }
+        public string DbPath { get;set; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
         {

@@ -21,6 +21,7 @@ builder.Services.AddCors(options =>
         builder => builder.AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
+           
 
 });
 var app = builder.Build();
@@ -30,7 +31,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    
 }
+
 
 app.UseCors(x => x.AllowAnyHeader()
             .AllowAnyMethod()
@@ -39,6 +42,8 @@ app.UseCors(x => x.AllowAnyHeader()
 app.UseRouting();
 app.UseStaticFiles();
 app.MapControllers();
+
+
  
 
 app.Run();

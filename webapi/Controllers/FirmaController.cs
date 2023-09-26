@@ -81,7 +81,7 @@ namespace webapi.Controllers
             {
                 Id = x.Id,
                 FirmaAdi = x.FirmaAdi,
-              FirmaFaaliyetAlani=x.FirmaFaaliyetAlani,
+                FirmaFaaliyetAlani=x.FirmaFaaliyetAlani,
                 FirmaMerkezi=x.FirmaMerkezi,
                 FirmaEmail = x.FirmaEmail,
                 FirmaTelefonNumarasi = x.FirmaTelefonNumarasi,
@@ -107,15 +107,5 @@ namespace webapi.Controllers
             return new ApiResult<FirmaGridVM> { Data = firmaVM, Result = true };
         }
 
-[HttpPost("Get")]
-        public ApiResult<List<FirmaSelectVM>> GetSelect()
-        {
-            var firmaVM = _unitOfWork.Repository<Firma>().Select(firma => new FirmaSelectVM
-            {
-                Value = firma.Id,
-                Label = firma.FirmaAdi,
-            }).ToList();
-            return new ApiResult<List<FirmaSelectVM>> { Data = firmaVM, Result = true };
-        }
     }
 }

@@ -43,7 +43,7 @@ function MusteriEkle() {
     
     
       const handleFirmaSelect = (selectedFirma) => {
-       setFirmaAdi(selectedFirma);
+       setFirmaId(selectedFirma);
       };
      
   
@@ -66,6 +66,7 @@ function MusteriEkle() {
             setMusteriSoyadi('');
             setIsFetching(false);
             setFirmaAdi('');
+            setFirmaId();
            
         }
     }, [id]);
@@ -113,7 +114,7 @@ function MusteriEkle() {
                 id: typeof id !== 'undefined' ? id : 0,
                 adi: musteriAdi,
                 soyadi: musteriSoyadi,
-                firmaId: firmaId.value,
+                firmaId: "1",
                 telefonNumarasi: phone,
                 email: email
             });

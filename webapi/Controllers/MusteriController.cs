@@ -31,16 +31,9 @@ namespace webapi.Controllers
                 return new ApiResult { Result = false, Message = "Daha önce eklenmiş" };
             }
 
-            Musteri data;
-            if (dataVM.Id > 0)
-            {
-                data = _unitOfWork.Repository<Musteri>().GetById(dataVM.Id);
-            }
-            else
-            {
-                data = new Musteri();
-            }
+            Musteri data = new Musteri();
 
+            data.Id = dataVM.Id;
             data.Adi = dataVM.Adi;
             data.Soyadi = dataVM.Soyadi;
             data.FirmaId = dataVM.FirmaId;
